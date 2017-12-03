@@ -1,0 +1,2 @@
+light theme icon color: b1b1b3
+dark theme icon color: 666666

@@ -1,0 +1,59 @@
+body {
+	width:  800px;
+	height: 600px;
+	background-color: #4c4c4c;
+}
+
+.tab {
+	width:  180px;
+	height: 200px;
+	border: 1px solid #eeeeee;
+	float:left;
+    margin: 5px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.tab-header {
+	background-color: #eeeeee;
+	color: #4c4c4c;
+	padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    font-size: 10pt;
+}
+
+.tab-content {
+	text-align: center;
+}
+
+.favicon {
+	text-align: left;
+	width:		100%;
+    max-width:	16px;
+    padding-right: 10px;
+}
+
+.close-btn {
+	width: 12px;
+	height: 12px;
+	float: right;
+	margin-right: 6px;
+	margin-top: 3px;
+}
+
+.close-img {
+	width: 100%;
+	height: auto;
+}
+
+.def-icon {
+	width: 30%;
+	height: auto;
+	margin-top: 50px;
+}
+
+.image-content {
+	width: 100%;
+	height: auto;
+}
