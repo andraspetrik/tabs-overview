@@ -13,15 +13,17 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function loadImageFromCacheWithSleep(tabId, tabUrl) {
+async function loadImageFromCacheWithSleep(windowId, tabId, tabUrl) {
 	await sleep(500);
-	loadImageFromCache(tabId, tabUrl);
+	loadImageFromCache(windowId, tabId, tabUrl);
 }
 
-function loadImageFromCache(tabId, tabUrl) {
+function loadImageFromCache(windowId, tabId, tabUrl) {
+	var persistenceId = windowId + "_" + tabId;
 	browser.storage.local.get("imagecache", function(result){
 		var imageCache = result["imagecache"];
-        var imageUriFromCache = imageCache[tabUrl];
+	var persistenceId = windowId + "_" + tabId;
+        var imageUriFromCache = imageCache[persistenceId];
         if (imageUriFromCache!= undefined) {
         	imageUriFromCache;
         	console.log("IMAGE LOADED -> #" + tabId + "_image");
@@ -42,7 +44,7 @@ function addTab(tab, i) {
 	  title = title + '...';
 	}
 
-	loadImageFromCache(tab.id, tab.url);
+	loadImageFromCache(tab.windowId, tab.id, tab.url);
 	
 
 	var favicon = tab.favIconUrl;
@@ -50,12 +52,18 @@ function addTab(tab, i) {
 		favicon = 'icons/defaultFavicon.svg';
 	}
 
+	var closeButton = ''; // give proper name for it
+	var closeButtonSrc = 	'<div class="close-btn" id="' + tab.id + '_btn"><img class="close-img" src="icons/close.svg"></img></div>';
+	if (tab.pinned == false) {
+		closeButton = closeButtonSrc;
+	} 
+
 	$('#tabContainer')
 	  	.append(
 	    	'<div class="tab" id="' + tab.id + '">' +
 	    	'  <div class="tab-header">' + 
 	    	'    <img class="favicon" src="' +  favicon + '"></img>' + title + 
-	    	'    <div class="close-btn" id="' + tab.id + '_btn"><img class="close-img" src="icons/close.svg"></img></div>' +
+	    	closeButton +
 	    	'  </div>' +
 	        '  <div class="tab-content"><img id="' + tab.id + '_image" class="def-icon" src="icons/defaultFavicon.svg"></img>' + 
 	    	'  </div>' +
